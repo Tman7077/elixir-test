@@ -12,6 +12,7 @@ defmodule Processes.Factorial do
   end
 
   defp calculate_factorial(0, result), do: result
+
   defp calculate_factorial(n, result) do
     calculate_factorial(n - 1, n * result)
   end

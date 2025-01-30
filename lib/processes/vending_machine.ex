@@ -1,4 +1,4 @@
-defmodule Vending_machine do
+defmodule Processes.Vending_machine do
   def start(inventory) do
     spawn(fn -> loop(inventory, 0) end)
   end
@@ -8,6 +8,7 @@ defmodule Vending_machine do
       {:add, amount} ->
         IO.puts("Adding #{amount}¢")
         loop(inventory, balance + amount)
+
       {:get, item} ->
         case Map.get(inventory, item) do
           nil ->
@@ -24,12 +25,16 @@ defmodule Vending_machine do
               loop(inventory, balance)
             end
         end
+
         loop(inventory, balance - item)
+
       {:check_inventory} ->
         Enum.each(inventory, fn {item, price} ->
           IO.puts("#{item}: #{price}")
         end)
+
         loop(inventory, balance)
+
       {:dispense_change} ->
         IO.puts("Dispensing #{balance}¢")
         loop(inventory, 0)
@@ -37,7 +42,8 @@ defmodule Vending_machine do
   end
 end
 
-_inventory = %{ # this is something that you could enter into the terminal as the inventory
+# this is something that you could enter into the terminal as the inventory
+_inventory = %{
   "soda" => 100,
   "chips" => 50,
   "candy" => 25

@@ -8,15 +8,18 @@ defmodule Processes.Bank do
       {:deposit, amount} ->
         IO.puts("Depositing $#{amount}")
         loop(balance + amount)
+
       {:withdraw, amount} ->
         case amount > balance do
           true ->
             IO.puts("Insufficient funds")
             loop(balance)
+
           false ->
             IO.puts("Withdrawing $#{amount}")
             loop(balance - amount)
         end
+
       {:get_balance} ->
         IO.puts("Balance: $#{balance}")
         loop(balance)

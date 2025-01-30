@@ -8,9 +8,11 @@ defmodule Processes.Counter do
       {:increment} ->
         IO.puts("Incrementing")
         loop(count + 1)
+
       {:decrement} ->
         IO.puts("Decrementing")
         loop(count - 1)
+
       {:get_count} ->
         IO.puts("Count: #{count}")
         loop(count)
