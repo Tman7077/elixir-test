@@ -1,4 +1,4 @@
-defmodule VarsTupsLists do
+defmodule Elix.VarsTupsLists do
   def convert_to_ascii(char) do
     var1 = char
     var2 = var1 |> String.to_charlist() |> hd

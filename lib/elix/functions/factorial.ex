@@ -1,4 +1,4 @@
-defmodule Functions.Factorial do
+defmodule Elix.Functions.Factorial do
   def calculate(n) do
     do_factorial(n, 1)
   end

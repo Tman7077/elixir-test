@@ -1,4 +1,4 @@
-defmodule Processes.Bank do
+defmodule Elix.Processes.Bank do
   def start do
     spawn(fn -> loop(0) end)
   end

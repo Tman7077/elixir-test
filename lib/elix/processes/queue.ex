@@ -1,4 +1,4 @@
-defmodule Processes.Queue do
+defmodule Elix.Processes.Queue do
   def start do
     spawn(fn -> loop([]) end)
   end

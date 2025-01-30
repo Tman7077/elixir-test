@@ -1,4 +1,4 @@
-defmodule Processes.Vending_machine do
+defmodule Elix.Processes.Vending_machine do
   def start(inventory) do
     spawn(fn -> loop(inventory, 0) end)
   end

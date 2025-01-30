@@ -1,4 +1,4 @@
-defmodule Processes.Factorial do
+defmodule Elix.Processes.Factorial do
   def start do
     spawn(fn -> loop() end)
   end

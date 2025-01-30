@@ -1,4 +1,4 @@
-defmodule Processes.Counter do
+defmodule Elix.Processes.Counter do
   def start do
     spawn(fn -> loop(0) end)
   end
