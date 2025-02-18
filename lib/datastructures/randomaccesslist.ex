@@ -3,6 +3,7 @@ defmodule DataStructures.RandomAccessList do
 
   @type leaf :: {1, any, nil, nil}
   @type tree :: {integer, any, tree | leaf, tree | leaf}
+  @type ral :: [tree]
 
   def start_link do
     GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
@@ -23,6 +24,8 @@ defmodule DataStructures.RandomAccessList do
     {:ok, ins10}
   end
 
+
+
   def insert(value) do
     GenServer.call(__MODULE__, {:insert, value})
   end
@@ -30,6 +33,16 @@ defmodule DataStructures.RandomAccessList do
   def update(index, value) do
     GenServer.call(__MODULE__, {:update, index, value})
   end
+
+  def display do
+    GenServer.call(__MODULE__, :display)
+  end
+
+  def convert_to_list do
+    GenServer.call(__MODULE__, :convert)
+  end
+
+
 
   def handle_call({:insert, value}, _, ral) do
     tree = {1, value, nil, nil}
@@ -39,6 +52,13 @@ defmodule DataStructures.RandomAccessList do
   def handle_call({:update, index, value}, _, ral) do
     newRal = modify_trees(index, value, ral)
     {:reply, newRal, newRal}
+  end
+  def handle_call(:display, _, ral) do
+    {:reply, ral, ral}
+  end
+  def handle_call(:convert, _, ral) do
+    list = to_list(ral)
+    {:reply, list, ral}
   end
 
 
@@ -82,6 +102,22 @@ defmodule DataStructures.RandomAccessList do
       else # right
         {size, rootValue, left, modify_tree(index - div(size, 2), newValue, right)}
       end
+    end
+  end
+
+  def to_list(ral) do
+    ral
+    |> Enum.reverse()
+    |> Enum.map(&to_list_tree/1)
+    |> Enum.reduce([], &(&1 ++ &2))
+  end
+
+  def to_list_tree(tree) do
+    case tree do
+      {1, value, nil, nil} ->
+        [value]
+      {_size, _value, left, right} ->
+        to_list_tree(left) ++ to_list_tree(right)
     end
   end
 end
